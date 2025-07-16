@@ -1,0 +1,56 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+// Helper function to sort the array (simple selection sort for small arrays)
+void sort(int *a, int n) {
+    for (int i = 0; i < n - 1; i++) {
+        for (int j = i + 1; j < n; j++) {
+            if (a[i] > a[j]) {
+                int temp = a[i];
+                a[i] = a[j];
+                a[j] = temp;
+            }
+        }
+    }
+}
+
+void three_sum(int *a, int n, int target) {
+    sort(a, n);
+
+    for (int i = 0; i < n - 2; i++) {
+        // Skip duplicate values for i
+        if (i > 0 && a[i] == a[i - 1]) continue;
+
+        int left = i + 1;
+        int right = n - 1;
+
+        while (left < right) {
+            int sum = a[i] + a[left] + a[right];
+            if (sum == target) {
+                printf("Triplet found: %d + %d + %d = %d\n", a[i], a[left], a[right], target);
+
+                // Skip duplicates for left
+                while (left < right && a[left] == a[left + 1]) left++;
+                // Skip duplicates for right
+                while (left < right && a[right] == a[right - 1]) right--;
+
+                left++;
+                right--;
+            } else if (sum < target) {
+                left++;
+            } else {
+                right--;
+            }
+        }
+    }
+}
+
+int main() {
+    int a[] = {-1, 0, 1, 2, -1, -4};
+    int n = sizeof(a) / sizeof(a[0]);
+    int target = 0;
+
+    three_sum(a, n, target);
+
+    return 0;
+}
