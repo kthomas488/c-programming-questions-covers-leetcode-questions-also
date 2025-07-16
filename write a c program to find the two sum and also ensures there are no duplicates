@@ -1,0 +1,44 @@
+#include <stdio.h>
+
+// Sort the array (simple bubble sort for small input)
+void sort(int *a, int n) {
+    for (int i = 0; i < n - 1; i++)
+        for (int j = i + 1; j < n; j++)
+            if (a[i] > a[j]) {
+                int temp = a[i];
+                a[i] = a[j];
+                a[j] = temp;
+            }
+}
+
+void two_sum_sorted(int *a, int n, int target) {
+    sort(a, n);
+    int left = 0, right = n - 1;
+
+    while (left < right) {
+        int sum = a[left] + a[right];
+
+        if (sum == target) {
+            printf("Pair: %d + %d = %d\n", a[left], a[right], target);
+            // Skip duplicates
+            while (left < right && a[left] == a[left + 1]) left++;
+            while (left < right && a[right] == a[right - 1]) right--;
+            left++;
+            right--;
+        } else if (sum < target) {
+            left++;
+        } else {
+            right--;
+        }
+    }
+}
+
+int main() {
+    int a[] = {1, 2, 3, 4, 3, 5, 6};
+    int n = sizeof(a) / sizeof(a[0]);
+    int target = 7;
+
+    two_sum_sorted(a, n, target);
+
+    return 0;
+}
