@@ -1,0 +1,40 @@
+#include <stdio.h>
+
+int main() {
+    int a[5] = {5, 1, 3, 7, 9};
+    int n = 5;
+    int target = 15;
+
+    // Sort the array first
+    for (int i = 0; i < n - 1; i++) {
+        for (int j = i + 1; j < n; j++) {
+            if (a[i] > a[j]) {
+                int temp = a[i];
+                a[i] = a[j];
+                a[j] = temp;
+            }
+        }
+    }
+
+    // Three sum logic
+    for (int i = 0; i < n - 2; i++) {
+        int j = i + 1;
+        int k = n - 1;
+
+        while (j < k) {
+            int sum = a[i] + a[j] + a[k];
+            if (sum == target) {
+                printf("Found indices: %d, %d, %d -> values: %d, %d, %d\n",
+                       i, j, k, a[i], a[j], a[k]);
+                j++;
+                k--;  // Move both to look for other possible triplets
+            } else if (sum < target) {
+                j++;  // Need a larger sum
+            } else {
+                k--;  // Need a smaller sum
+            }
+        }
+    }
+
+    return 0;
+}
