@@ -1,0 +1,24 @@
+#include <stdio.h>
+#include <stdbool.h>
+
+int array[5] = {5, 1, 3, 2, 4};
+
+void two_sum(int target) {
+    bool map[100] = {false};  // to store if complement exists
+    for (int i = 0; i < 5; i++) {
+        int complement = target - array[i];
+        if (map[array[i]]) {
+            // complement already seen
+            printf("Found pair: %d + %d = %d\n", complement, array[i], target);
+            return;
+        }
+        // Mark complement as expected in future
+        map[complement] = true;
+    }
+    printf("No pair found for sum %d\n", target);
+}
+
+int main() {
+    two_sum(10);
+    return 0;
+}
