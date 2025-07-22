@@ -1,0 +1,49 @@
+Given an array where exactly two numbers appear only once, and all other numbers appear exactly twice, find the two numbers.
+arr[] = {4, 1, 2, 1, 2, 5}
+All numbers appear twice except 4 and 5.
+XOR of a number with itself is 0 → x ^ x = 0
+
+XOR of a number with 0 is itself → x ^ 0 = x
+
+XOR is commutative and associative
+4 ^ 1 ^ 2 ^ 1 ^ 2 ^ 5 = 4 ^ 5 = 1st_unique ^ 2nd_unique
+Steps to Solve:
+XOR all elements. Let's call the result xor_total = x ^ y (where x and y are the two unique numbers).
+
+Find any set bit in xor_total (say rightmost set bit) — this bit must be different between x and y.
+
+Partition the array into two groups using that bit and XOR each group.
+
+Each group gives one unique number!
+
+#include <stdio.h>
+
+void findTwoUnique(int arr[], int n) {
+    int xor_total = 0;
+    for (int i = 0; i < n; i++) {
+        xor_total ^= arr[i];
+    }
+
+    // Step 2: Find rightmost set bit
+    int rightmost_set_bit = xor_total & (-xor_total);
+
+    int num1 = 0, num2 = 0;
+
+    // Step 3: Partition into two groups
+    for (int i = 0; i < n; i++) {
+        if ((arr[i] & rightmost_set_bit) != 0)
+            num1 ^= arr[i]; // belongs to group with bit set
+        else
+            num2 ^= arr[i]; // belongs to group with bit not set
+    }
+
+    printf("The two unique numbers are: %d and %d\n", num1, num2);
+}
+
+int main() {
+    int arr[] = {4, 1, 2, 1, 2, 5};
+    int n = sizeof(arr) / sizeof(arr[0]);
+
+    findTwoUnique(arr, n);
+    return 0;
+}
