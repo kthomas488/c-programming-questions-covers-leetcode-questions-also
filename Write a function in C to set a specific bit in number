@@ -1,0 +1,16 @@
+Write a function in C to set a specific bit in number
+#include <stdio.h>
+
+int setBit(int num, int k) {
+    return num | (1 << k);
+}
+
+int main() {
+    int number = 4;  // 00000100
+    int position = 3;
+
+    int result = setBit(number, position);
+    printf("After setting bit %d: %d\n", position, result);  // Output: 12
+
+    return 0;
+}
