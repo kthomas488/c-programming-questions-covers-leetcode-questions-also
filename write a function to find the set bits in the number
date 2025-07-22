@@ -1,0 +1,38 @@
+
+Given a number, write a function to find the set bits in the number.
+For example:
+
+#include<stdio.h>
+
+int only_set_bit(int value){
+int pos;
+ if (value == 0)
+  return -1;
+pos =0;
+while (value !=0 ){
+
+  if (( value & 1 ) == 1){
+  pos++;
+  
+}
+value = value >>1;
+
+}
+return pos;
+}
+
+void main(){
+
+int num = 100;
+int val;
+val=only_set_bit(num);
+
+printf("Printing the binary value of num is %b\n",num);
+if (val == -1){
+printf("The number is zero");
+}
+else{
+printf("The number of bits is set to 1 is %d",val);
+}
+
+}
