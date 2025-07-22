@@ -1,0 +1,19 @@
+write a c program to turnoff the right most set bit 
+To turn off the rightmost set bit of a number n, use:
+n & (n - 1)
+
+#include <stdio.h>
+
+int turnOffRightmostSetBit(int n) {
+    return n & (n - 1);
+}
+
+int main() {
+    int num = 12;
+    int result = turnOffRightmostSetBit(num);
+
+    printf("Original number: %d\n", num);
+    printf("After turning off rightmost set bit: %d\n", result);
+
+    return 0;
+}
