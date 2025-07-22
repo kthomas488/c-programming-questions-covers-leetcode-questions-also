@@ -1,0 +1,28 @@
+#include<stdio.h>
+
+
+int main( int num){
+
+int result = 0;
+
+while (num != 0){
+int digit = num%10;
+ if (result > INT_MAX/10 || (result == INT_MAX/10 && digit > 7))
+            return 0; // Positive overflow
+        if (result < INT_MIN/10 || (result == INT_MIN/10 && digit < -8))
+            return 0; // Negative overflow
+
+        result = result * 10 + digit;
+        num/= 10;
+}
+return result;
+}
+void main(){
+int num;
+num = -100;
+
+int num_reversed = reversed_num(num);
+
+printf("Reversed num = %d",num);
+
+}
