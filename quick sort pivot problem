@@ -1,0 +1,51 @@
+#include <stdio.h>
+
+void print_array(int a[], int n) {
+    for (int i = 0; i < n; i++) {
+        printf("%d ", a[i]);
+    }
+    printf("\n");
+}
+
+void partition_with_second_as_pivot(int a[], int n) {
+    int pivot_index = 1;
+    int pivot = a[pivot_index];
+
+    // Move pivot temporarily to the end
+    int temp = a[pivot_index];
+    a[pivot_index] = a[n - 1];
+    a[n - 1] = temp;
+
+    int i = 0;
+
+    for (int j = 0; j < n - 1; j++) {
+        if (a[j] < pivot) {
+            // Swap a[i] and a[j]
+            int tmp = a[i];
+            a[i] = a[j];
+            a[j] = tmp;
+            i++;
+        }
+    }
+
+    // Place pivot in the correct position
+    a[n - 1] = a[i];
+    a[i] = pivot;
+
+    // Result is now partitioned
+}
+
+int main() {
+    int a[] = {3, 9, 5, 8, 11, 6, 1, 10, 7, 2};
+    int n = sizeof(a) / sizeof(a[0]);
+
+    printf("Original array:\n");
+    print_array(a, n);
+
+    partition_with_second_as_pivot(a, n);
+
+    printf("Partitioned array (pivot = 9):\n");
+    print_array(a, n);
+
+    return 0;
+}
